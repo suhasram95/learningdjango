@@ -36,7 +36,7 @@ jobs:
         python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Check Syntax
-      run: pycodesyle --statistics .
+      run: pycodesyle2.6.0 --statistics .
     - name: Run Migrations
       run: python firstproject/manage.py migrate
     - name: Lint with flake8
