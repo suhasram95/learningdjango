@@ -9,7 +9,10 @@ on:
       - master
       - feature/*
   pull_request:
-    branches: [ master ]
+    branches: 
+      - master
+      - feature/*
+      - release/*
 
 jobs:
   build:
@@ -21,6 +24,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Check Python version
+      run: python --version
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -30,6 +35,10 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Check Syntax
+      run: pycodesyle --statistics .
+    - name: Run Migrations
+      run: python firstproject/manage.py migrate
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
