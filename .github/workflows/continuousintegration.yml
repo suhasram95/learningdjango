@@ -57,4 +57,4 @@ jobs:
           . 
           !venv/
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag suhasram95/firstproject:$(date +%s)
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/firstproject:${{ github.run_number }}
